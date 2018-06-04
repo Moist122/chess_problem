@@ -52,6 +52,7 @@ struct DFS{ //depth first search for a way to beat the king
 struct Astar{ //A* search for solution for a problem
     std::vector<char> route; //route to king found
     std::vector<std::tuple<char,int,int,int>> found; //found (square, f,g,h)
+    std::vector<char> visit; //visited
     std::map<std::shared_ptr<Board::Square>,int> f, g, h; //f g h values of nodes
     Astar(Problem& problem) {
         std::unordered_map<char, bool> visited;
@@ -76,6 +77,7 @@ struct Astar{ //A* search for solution for a problem
         g[current] = 0;
         f[current] = g[current]+h[current];
         found.push_back(std::make_tuple(current->getSymbol(),f[current],g[current],h[current]));
+        visit.push_back(current->getSymbol());
         while(!visited[target->getSymbol()]) {
             bool rookOnBoard = true;
             for(auto sq: routeToSquare[current->getSymbol()])
@@ -111,6 +113,7 @@ struct Astar{ //A* search for solution for a problem
             else break;
             current = problem.knight->getSquare();
             visited[current->getSymbol()] = true;
+            visit.push_back(current->getSymbol());
         }
         route = routeToSquare[target->getSymbol()];
     }

@@ -29,6 +29,9 @@ int main() {
     for(auto c: as.found)
         cout<<get<0>(c)<<" f="<<get<1>(c)<<" g="<<get<2>(c)<<" h="<<get<3>(c)<<endl;
     cout<<endl;
+    cout<<"Visited:\n";
+    for(auto c: as.visit)
+        cout<<c<<endl;
     cout<<"Route to king:\n";
     for(auto c: as.route)
         cout<<c;
